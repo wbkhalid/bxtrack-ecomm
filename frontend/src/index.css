@@ -4,12 +4,20 @@
 
 
 * {
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
   box-sizing: border-box;
 }
 
 
 a.active hr {
   display: block;
+}
+
+@media (max-width:700px) {
+  a.active {
+    background-color: black;
+    color: #fff;
+  }
+
 }
