@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Cart from './pages/Cart'
 import PlaceOrder from './pages/PlaceOrder'
 import Orders from './pages/Orders'
+import Login from './pages/Login'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           <Route path='/cart' element={<Cart />} />
           <Route path='/place-order' element={<PlaceOrder />} />
           <Route path='/orders' element={<Orders />} />
+          <Route path='/login' element={<Login />} />
         </Routes>
       </div>
       <Footer />
