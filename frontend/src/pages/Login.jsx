@@ -3,6 +3,7 @@ import { ShopContext } from '../context/ShopContext';
 import axios from 'axios'
 
 const Login = () => {
+
     const { navigate, backend_url, token, setToken } = useContext(ShopContext);
     const [currentState, setCurrentState] = useState('Log In');
 
@@ -28,9 +29,9 @@ const Login = () => {
         }
     }
 
-    useEffect(() => {
-        navigate('/')
-    }, [])
+    // useEffect(() => {
+    //     navigate('/')
+    // }, [])
 
     return (
         <form onSubmit={onSubmitHandler} className='flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-700'>

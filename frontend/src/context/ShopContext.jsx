@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { products } from "../assets/assets";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 
 export const ShopContext = createContext()
@@ -88,9 +89,9 @@ const ShopContextProvider = ({ children }) => {
         }
     }
 
-    useEffect(() => {
-        getProductsData()
-    }, [])
+    // useEffect(() => {
+    //     getProductsData()
+    // }, [])
 
     useEffect(() => {
         if (!token && localStorage.getItem('token')) {
@@ -98,7 +99,7 @@ const ShopContextProvider = ({ children }) => {
         }
     }, [])
 
-    const value = { currency, deliveryFee, products, addToCart, cartItems, getCartCount, updateQuantity, getCartAmount, navigate, backend_url, token, setToken,setCartItems }
+    const value = { currency, deliveryFee, products, addToCart, cartItems, getCartCount, updateQuantity, getCartAmount, navigate, backend_url, token, setToken, setCartItems }
     return (
         <ShopContext.Provider value={value}>
             {children}
