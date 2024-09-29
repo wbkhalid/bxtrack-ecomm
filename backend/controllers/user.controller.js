@@ -12,15 +12,18 @@ const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body
 
-        const user = await userModel.find({ email })
+        const user = await userModel.findOne({ email })
+
         if (!user) {
             return res.json({ success: false, message: 'User does not exist' })
         }
 
-        const passwordMatch = await bcrypt.compare(password, user.password)
+        const passwordMatch = bcrypt.compareSync(password, user.password)
 
         if (passwordMatch) {
+
             const token = createToken(user._id)
+
             return res.json({ success: true, token })
         } else {
             res.json({ success: false, message: 'Invlaid credentials' })
@@ -38,11 +41,14 @@ const registerUser = async (req, res) => {
         const { name, email, password } = req.body
 
         const emailExist = await userModel.find({ email })
-        if (emailExist) {
+
+
+        if (emailExist.length >= 1) {
             return res.json({ success: false, message: 'User already exist' })
         }
 
-        if (validator.isEmail(email)) {
+
+        if (!validator.isEmail(email)) {
             return res.json({ success: false, message: 'Please Enter valid email' })
         }
 
@@ -52,17 +58,19 @@ const registerUser = async (req, res) => {
 
 
         const salt = bcrypt.genSalt(10)
-        const hashedPassword = await bcrypt.hash(password, salt)
+        const hashedPassword = await bcrypt.hash(password, Number(salt))
 
         const newUser = new userModel({
             name,
             email,
             password: hashedPassword
         })
+        console.log(newUser);
 
         const user = await newUser.save()
+        console.log(user);
 
-        const token = createToken(user?.id)
+        const token = createToken(user?._id)
         return res.json({ success: true, token: token })
 
     } catch (error) {
