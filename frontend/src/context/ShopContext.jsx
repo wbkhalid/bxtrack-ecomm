@@ -89,9 +89,9 @@ const ShopContextProvider = ({ children }) => {
         }
     }
 
-    // useEffect(() => {
-    //     getProductsData()
-    // }, [])
+    useEffect(() => {
+        getProductsData()
+    }, [])
 
     useEffect(() => {
         if (!token && localStorage.getItem('token')) {
