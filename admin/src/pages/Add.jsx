@@ -37,34 +37,37 @@ const Add = ({ token }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      const formData = new FormData()
-      formData.append('name', name)
-      formData.append('description', description)
-      formData.append('price', price)
-      formData.append('category', category)
-      formData.append('subCategory', subCategory)
-      formData.append('bestseller', bestseller)
-      formData.append('sizes', JSON.stringify(sizes))
-
-      image1 && formData.append('image1', image1)
-      image2 && formData.append('image2', image2)
-      image3 && formData.append('image3', image3)
-      image4 && formData.append('image4', image4)
-
-      const response = await axios.post(`${backend_url}/api/product/add`, formData, { headers: token })
-
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('description', description);
+      formData.append('price', price);
+      formData.append('category', category);
+      formData.append('subCategory', subCategory);
+      formData.append('bestseller', bestseller);
+      formData.append('sizes', JSON.stringify(sizes));
+  
+      // Append images if they exist
+      image1 && formData.append('image1', image1);
+      image2 && formData.append('image2', image2);
+      image3 && formData.append('image3', image3);
+      image4 && formData.append('image4', image4);
+  
+      // Add Bearer prefix to the token in Authorization header
+      const headers = { Authorization: `${token}` };
+      const response = await axios.post(`${backend_url}/api/product/add`, formData, { headers });
+  
       if (response.data.success) {
         toast.success('Product Added');
         resetForm();
       }
-
     } catch (error) {
       console.log(error);
       toast.error('Error adding product');
     }
   };
+  
 
 
   return (
