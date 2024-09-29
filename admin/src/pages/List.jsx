@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
+import axios from 'axios'
+import { backend_url } from '../App'
 
-const List = (token) => {
+const List = ({ token }) => {
   const [list, setList] = useState([])
+
 
   const fetchList = async () => {
     try {
-      const response = await axios.post(`${backend_url}/api/product/list`)
+      const response = await axios.get(`${backend_url}/api/product/list`)
 
       if (response.data.success) {
         setList(response.data.products)
@@ -21,7 +24,8 @@ const List = (token) => {
 
   const removeProduct = async (id) => {
     try {
-      const response = await axios.post(`${backend_url}/api/product/remove`, { id }, { headers, token })
+      const headers = { Authorization: `${token}` };
+      const response = await axios.post(`${backend_url}/api/product/remove`, { id }, { headers })
 
       if (response.data.success) {
         toast.success(response.data.message)
@@ -37,6 +41,7 @@ const List = (token) => {
   useEffect(() => {
     fetchList()
   }, [])
+
   return (
     <>
       <p className='mb-2'>All Products List</p>
@@ -57,7 +62,7 @@ const List = (token) => {
               <p>{item.name}</p>
               <p>{item.category}</p>
               <p>{item.price}</p>
-              <p className='text-right md:text-center cursor-pointer text-lg' onClick={()=>removeProduct(item._id)}>X</p>
+              <p className='text-right md:text-center cursor-pointer text-lg' onClick={() => removeProduct(item._id)}>X</p>
             </div>
           ))
         }

@@ -7,7 +7,7 @@ const addProduct = async (req, res) => {
 
 
         console.log(req.files);
-        
+
         const image1 = req.files.image1 && req.files.image1[0]
         const image2 = req.files.image2 && req.files.image2[0]
         const image3 = req.files.image3 && req.files.image3[0]
@@ -61,7 +61,8 @@ const listProduct = async (req, res) => {
 }
 const removeProduct = async (req, res) => {
     try {
-        await productModel.findByIdAndDelete(req.body._id)
+        const { id } = req.body
+        await productModel.findByIdAndDelete(id)
         return res.json({ success: true, message: "Product deleted" })
     } catch (error) {
         console.log(error);
