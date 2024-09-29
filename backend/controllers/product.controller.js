@@ -18,6 +18,7 @@ const addProduct = async (req, res) => {
                 return result.secure_url
             })
         )
+        console.log(imagesUrl);
 
         const productData = {
             name,
@@ -29,6 +30,8 @@ const addProduct = async (req, res) => {
             image: imagesUrl,
             date: Date.now()
         }
+        console.log(productData);
+
 
         const product = new productModel(productData)
         await product.save()

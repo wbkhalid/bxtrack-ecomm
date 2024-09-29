@@ -57,7 +57,7 @@ const Add = ({ token }) => {
 
       if (response.data.success) {
         toast.success('Product Added');
-        resetForm(); // Clear form after successful submission
+        resetForm();
       }
 
     } catch (error) {
