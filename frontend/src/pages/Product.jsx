@@ -14,7 +14,6 @@ const Product = () => {
         fetchProductData()
     }, [productId])
 
-    console.log(products)
     const fetchProductData = async () => {
         products?.map((item) => {
             if (item?._id === productId) {

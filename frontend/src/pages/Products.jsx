@@ -12,7 +12,7 @@ const Products = () => {
 
     useEffect(() => {
         applyFilter()
-    }, [category])
+    }, [category,products])
     useEffect(() => {
         sortProducts()
     }, [sortType])
